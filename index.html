@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Frontend Mentor | Expenses chart component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="head">
+        <div class="sec1">
+          <p>My balance</p>
+          <h1>$921.48</h1>
+        </div>
+        <img class="logo" src="images/logo.svg" alt="logo" />
+      </div>
+
+      <div class="chart">
+        <h3 class="title">Spending - Last 7 days</h3>
+        <canvas id="myChart"></canvas>
+        <div class="sec">
+          <p class="total">Total this month</p>
+          <div class="flex">
+            <h1 class="flex-item1">$478.33</h1>
+            <div class="flex-item2">
+              <p class="perc">2.4%+</p>
+              <p class="past">from last month</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      fetch("data.json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data1) => {
+          let labels = [];
+          let values = [];
+
+          for (var i = 0; i < Object.keys(data1).length; i++) {
+            labels.push(data1[i].day);
+            values.push(data1[i].amount);
+          }
+
+          var d = new Date();
+          var dayName = d.toString().split(" ")[0];
+          console.log(dayName);
+
+          let colors = [];
+          let colors_hover = [];
+
+          for (var i = 0; i <= 7; i++) {
+            colors.push("hsl(10, 79%, 65%)");
+            colors_hover.push("hsla(10, 79%, 65%, 60%)");
+          }
+
+          const str = labels[d.getDay() - 1];
+          const str2 = str.charAt(0).toUpperCase() + str.slice(1);
+
+          if (dayName == str2) {
+            colors[d.getDay() - 1] = "hsl(186, 34%, 60%)";
+            colors_hover[d.getDay() - 1] = "hsla(186, 34%, 60%, 60%)";
+          }
+
+          const data = {
+            labels: labels,
+            datasets: [
+              {
+                label: "",
+                backgroundColor: colors,
+                borderRadius: 5,
+                borderSkipped: false,
+                data: values,
+                hoverBackgroundColor: colors_hover,
+              },
+            ],
+          };
+
+          console.log(data.datasets[0].data);
+          const config = {
+            type: "bar",
+            data: data,
+            options: {
+              onHover: (event, chartElement) => {
+                event.native.target.style.cursor = chartElement[0]
+                  ? "pointer"
+                  : "default";
+              },
+
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: { color: "hsl(28, 10%, 53%)", font: { size: 12 } },
+                  grid: {
+                    color: "white",
+                    borderColor: "white",
+                  },
+                },
+                y: {
+                  ticks: {
+                    display: false,
+                  },
+                  grid: {
+                    color: "white",
+                    borderColor: "white",
+                    display: false,
+                  },
+                },
+              },
+            },
+          };
+          const myChart = new Chart(document.getElementById("myChart"), config);
+        });
+    </script>
+  </body>
+</html>
+<!-- <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div>-->

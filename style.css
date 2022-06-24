@@ -1,0 +1,88 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+}
+
+body {
+  background-color: hsl(27, 66%, 92%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.chart {
+  width: 420px;
+  background-color: #ffff;
+  border-radius: 10px;
+  padding: 20px 10px 30px;
+}
+
+.title {
+  margin: 0 10px 30px;
+  font-size: 24px;
+  color: hsl(25, 47%, 15%);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-item2 {
+  direction: rtl;
+}
+
+.flex-item2 .perc {
+  font-weight: 700;
+}
+
+.flex-item1,
+.perc {
+  color: hsl(25, 47%, 15%);
+}
+.past,
+.total {
+  color: hsl(28, 10%, 53%);
+}
+
+.sec {
+  border-top: 3px solid hsl(27, 66%, 92%);
+  padding: 20px 0 0;
+  margin: 20px 15px 0;
+}
+
+.head {
+  background-color: hsl(10, 79%, 65%);
+  display: flex;
+  padding: 20px;
+  width: 420px;
+  margin: 0 0 20px;
+  border-radius: 10px;
+  justify-content: space-between;
+  color: #ffff;
+}
+
+.sec1 h1 {
+  margin-top: 5px;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+@media screen and (max-width: 420px) {
+  .head,
+  .chart {
+    width: 380px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .head,
+  .chart {
+    width: 350px;
+  }
+}
